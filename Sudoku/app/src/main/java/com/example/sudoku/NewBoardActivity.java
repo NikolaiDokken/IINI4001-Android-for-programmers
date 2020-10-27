@@ -139,13 +139,5 @@ public class NewBoardActivity extends AppCompatActivity implements CellGroupFrag
 
         newBoard.setValue(row, column, selectedValue);
         clickedCell.setText(selectedValue == 0?"": selectedValue + "");
-
-        /*
-        Log.i(TAG, "Clicked group " + groupId + ", cell " + cellId);
-        Intent intent = new Intent("com.example.ChooseNumberActivity");
-        intent.putExtra("newBoard", true);
-        startActivityForResult(intent, 1);
-
-         */
     }
 }
