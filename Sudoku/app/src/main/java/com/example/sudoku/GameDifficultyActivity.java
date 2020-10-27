@@ -30,6 +30,7 @@ public class GameDifficultyActivity extends AppCompatActivity {
     public void onDifficultyRadioButtonsClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
+        // Radiobuttons selecting difficulty
         switch (view.getId()) {
             case R.id.radioButtonEasy:
                 if (checked) {
@@ -51,12 +52,14 @@ public class GameDifficultyActivity extends AppCompatActivity {
 
     public void onStartGameButtonClicked(View view) {
         if (newBoard) {
-            Intent intent = new Intent();
+            // Adds new board and notifies user
+            Intent intent = new Intent("com.example.MainActivity");
             intent.putExtra("boardSaved", true);
             intent.putExtra("difficulty", selectedDifficulty);
             setResult(RESULT_OK, intent);
             finish();
         } else {
+            // Go to game afer selecting difficulty
             Intent intent = new Intent("com.example.GameActivity");
             intent.putExtra("difficulty", selectedDifficulty);
             startActivity(intent);

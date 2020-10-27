@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Android-Sudoku</string>
-    <string name="sudoku">Sudoku</string>
+    <string name="app_name">Android-Sudoku-App</string>
+    <string name="sudoku">Sudokuuuuu</string>
     <string name="norwegian_description">A picture of a norwegian flag</string>
     <string name="british_description">A picture of a british flag</string>
 
@@ -13,9 +13,9 @@
     <string name="choose_language">Change language:</string>
 
     <string name="instructions">Instructions</string>
-    <string name="instructions_1">1. In Sudoku it is intended to place all the remaining pieces on the board. The numbers range from 1 to 9 (in 9x9 Sudoku).</string>
-    <string name="instructions_2">2. The board is separated into several squares, and inside each of them it is only allowed to place one of each number.</string>
-    <string name="instructions_3">3. It is only allowed to place one of each number at each row, both horizontal and vertical.</string>
+    <string name="instructions_1">1. In Sudoku you are to fill all empty squares with numbers. The numbers range from 1 to 9 (in 9x9 Sudoku).</string>
+    <string name="instructions_2">2. The board is separated into rows, columns and boxes(each containing 9 squares).</string>
+    <string name="instructions_3">3. Each row, column and box should contain all numbers ranging from 1 to 9.</string>
     <string name="go_back_button">Go back</string>
 
     <string name="choose_difficulty">Choose difficulty:</string>
@@ -32,6 +32,7 @@
     <string name="check_board">Check board</string>
     <string name="board_correct">Board is correct</string>
     <string name="board_incorrect">Board is not correct</string>
+    <string name="board_not_full">Fill all empty squares</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>
@@ -43,4 +44,5 @@
     <string name="_9">9</string>
     <string name="unsure">Unsure</string>
     <string name="erease">Erease</string>
+    <string name="solve">Solve</string>
 </resources>

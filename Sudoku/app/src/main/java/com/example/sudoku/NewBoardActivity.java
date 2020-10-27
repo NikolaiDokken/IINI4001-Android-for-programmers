@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class NewBoardActivity extends AppCompatActivity implements CellGroupFrag
     private Board newBoard;
     private int clickedGroup;
     private int clickedCellId;
+    private int selectedValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,14 +102,50 @@ public class NewBoardActivity extends AppCompatActivity implements CellGroupFrag
         }
     }
 
+    public void onValueClicked(View view) {
+        Button temp = (Button) view;
+        if (temp.getId() == R.id.ButtonErease) {
+            selectedValue = 0;
+            Button tempButton = null;
+            for (int i = 1; i < 10; i++) {
+                String tempid = "buttonEnter" + i;
+                tempButton = (Button) findViewById(getResources().getIdentifier(tempid, "id", getPackageName()));
+                tempButton.setBackgroundColor(0);
+            }
+        } else {
+            selectedValue = Integer.parseInt(temp.getText().toString());
+            Button tempButton = null;
+            for (int i = 1; i < 10; i++) {
+                String tempid = "buttonEnter" + i;
+                tempButton = (Button) findViewById(getResources().getIdentifier(tempid, "id", getPackageName()));
+                tempButton.setBackgroundColor(0);
+            }
+            tempButton = findViewById(R.id.ButtonErease);
+            tempButton.setBackgroundColor(0);
+        }
+        temp.setBackgroundColor(Color.CYAN);
+    }
+
     @Override
     public void onFragmentInteraction(int groupId, int cellId, View view) {
         clickedCell = (TextView) view;
         clickedCellId = cellId;
         clickedGroup = groupId;
         Log.i(TAG, "Clicked group " + groupId + ", cell " + cellId);
+
+
+        int row = ((clickedGroup - 1) / 3) * 3 + (clickedCellId / 3);
+        int column = ((clickedGroup - 1) % 3) * 3 + ((clickedCellId) % 3);
+
+        newBoard.setValue(row, column, selectedValue);
+        clickedCell.setText(selectedValue == 0?"": selectedValue + "");
+
+        /*
+        Log.i(TAG, "Clicked group " + groupId + ", cell " + cellId);
         Intent intent = new Intent("com.example.ChooseNumberActivity");
         intent.putExtra("newBoard", true);
         startActivityForResult(intent, 1);
+
+         */
     }
 }

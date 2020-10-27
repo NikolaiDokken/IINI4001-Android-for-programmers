@@ -2,16 +2,13 @@ package com.example.sudoku;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -183,18 +180,26 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
     }
 
     public void onCheckBoardButtonClicked(View view) {
-        currentBoard.isBoardCorrect();
-        if(checkAllGroups() && currentBoard.isBoardCorrect()) {
-            Toast.makeText(this, getString(R.string.board_correct), Toast.LENGTH_SHORT).show();
+        if (currentBoard.isBoardFull()) {
+            currentBoard.isBoardCorrect();
+            if(checkAllGroups() && currentBoard.isBoardCorrect()) {
+                Toast.makeText(this, getString(R.string.board_correct), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.board_incorrect), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, getString(R.string.board_incorrect), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.board_not_full), Toast.LENGTH_SHORT).show();
+
         }
     }
 
     public void onValueClicked(View view) {
         Button temp = (Button) view;
-        if (temp.getText().toString().equals("Slett") || temp.getText().toString().equals("Slett")) {
+        if (temp.getId() == R.id.ButtonErease) {
             selectedValue = 0;
+            unsure = false;
+            View unsureView = findViewById(R.id.ButtonUnsure);
+            unsureView.setBackgroundColor(0);
             Button tempButton = null;
             for (int i = 1; i < 10; i++) {
                 String tempid = "buttonEnter" + i;
@@ -233,40 +238,6 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
         startActivity(intent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            int row = ((clickedGroup - 1) / 3) * 3 + (clickedCellId / 3);
-            int column = ((clickedGroup - 1) % 3) * 3 + ((clickedCellId) % 3);
-
-            Button buttonCheckBoard = findViewById(R.id.buttonCheckBoard);
-            if (data.getBooleanExtra("removePiece", false)) {
-                clickedCell.setText("");
-                clickedCell.setBackground(getResources().getDrawable(R.drawable.table_border_cell));
-                currentBoard.setValue(row, column, 0);
-                buttonCheckBoard.setVisibility(View.INVISIBLE);
-            } else {
-                int number = data.getIntExtra("chosenNumber", 1);
-                clickedCell.setText(String.valueOf(number));
-                currentBoard.setValue(row, column, number);
-
-                boolean isUnsure = data.getBooleanExtra("isUnsure", false);
-                if (isUnsure) {
-                    clickedCell.setBackground(getResources().getDrawable(R.drawable.table_border_cell_unsure));
-                } else {
-                    clickedCell.setBackground(getResources().getDrawable(R.drawable.table_border_cell));
-                }
-
-                if (currentBoard.isBoardFull()) {
-                    buttonCheckBoard.setVisibility(View.VISIBLE);
-                } else {
-                    buttonCheckBoard.setVisibility(View.INVISIBLE);
-                }
-            }
-        }
-    }
-
     @Override
     public void onFragmentInteraction(int groupId, int cellId, View view) {
         clickedCell = (TextView) view;
@@ -284,17 +255,6 @@ public class GameActivity extends AppCompatActivity implements CellGroupFragment
             } else {
                 clickedCell.setBackground(getResources().getDrawable(R.drawable.table_border_cell));
             }
-
-            Button buttonCheckBoard = findViewById(R.id.buttonCheckBoard);
-            if (currentBoard.isBoardFull()) {
-                buttonCheckBoard.setVisibility(View.VISIBLE);
-            } else {
-                buttonCheckBoard.setVisibility(View.INVISIBLE);
-            }
-            /*
-            Intent intent = new Intent("com.example.ChooseNumberActivity");
-            startActivityForResult(intent, 1);
-             */
         } else {
             Toast.makeText(this, getString(R.string.start_piece_error), Toast.LENGTH_SHORT).show();
         }

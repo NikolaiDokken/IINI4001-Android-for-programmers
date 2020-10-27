@@ -128,8 +128,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableLeft="@android:drawable/ic_menu_delete"
                 android:onClick="onValueClicked"
-                android:text="@string/erease" />
+                android:drawableStart="@android:drawable/ic_menu_delete" />
+
+            <Button
+                android:id="@+id/ButtonUnsure"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@android:drawable/ic_menu_help"
+                android:drawableLeft="@android:drawable/ic_menu_help"
+                android:onClick="onUnsureClicked" />
 
             <Button
                 android:id="@+id/buttonEnter1"
@@ -213,13 +224,6 @@
                 android:text="@string/_9" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onUnsureClicked"
-            android:text="@string/unsure" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="68dp"
@@ -248,7 +252,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoardButtonClicked"
                 android:text="@string/check_board"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
         </LinearLayout>
 
